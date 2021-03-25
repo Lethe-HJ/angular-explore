@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, DoCheck, AfterContentInit, AfterContentChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, DoCheck, AfterContentInit, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-sub',
@@ -7,17 +7,22 @@ import { Component, Input, OnInit, SimpleChanges, OnChanges, DoCheck, AfterConte
 })
 export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
   @Input() surname: string;
-  changeLog: string[] = [];
-  htmlChangeLog: { title: string, children: string[] }[] = [];
+  @Output() usernameChange = new EventEmitter<string>();
   username: string = '';
   // 属性与方法最先被定义
   constructor() {
-    this.log('declaration\n');
+    this.log('declaration');
     this.log('constructor');
   }
 
   log(str) {
-    console.log(`\t\t\t\t\t${str}\t\tusername='${this.username}'`);
+    const spaceStr = '                        ';
+    console.log(`${spaceStr}${(str + spaceStr + '   ').substr(0, 14)}       sub.surname='${this.surname}'  sub.username='${this.username}'`);
+  }
+
+  onUsernameInput($event) {
+    console.log('子组件输入框发生了变化' + $event.target.value)
+    this.usernameChange.emit($event.target.value);
   }
 
   // 当 Angular 设置或重新设置数据绑定的输入属性时响应
@@ -36,8 +41,9 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   // 在 Angular 第一次显示数据绑定和设置指令/组件的输入属性之后 用于初始化指令/组件
   // 时机 在第一轮 ngOnChanges() 完成之后调用
   ngOnInit(): void {
+    this.username = 'jin';
+    console.log('给username赋值"jin"');
     this.log('ngOnInit')
-    this.username = 'x';
   }
 
   // 检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应
@@ -52,7 +58,9 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
     this.log('ngAfterContentInit');
   }
 
-  ngAfterContentChecked(){
+  ngAfterContentChecked() {
     this.log('ngAfterContentChecked')
   }
 }
+
+

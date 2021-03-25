@@ -1,15 +1,10 @@
 <div>
     <label for="username">名</label>
-    <input id="username" type="text" [(ngModel)]="username">
+    <input id="username" type="text" [(ngModel)]="username" (input)="onUsernameInput($event)">
     <!-- 使用ngModel必须在当前模块的module.ts中的import数组中加入FormsModule-->
     <div>
-        <ol>
-            <li *ngFor="let item of htmlChangeLog">
-                <strong>{{item.title}}</strong>
-                <ul>
-                    <li *ngFor="let subItem of item.children">{{subItem}}</li>
-                </ul>
-            </li>
-        </ol>
+        <span>姓名</span>
+        <span>{{surname}}</span>
+        <span>{{username}}</span>
     </div>
 </div>

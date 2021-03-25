@@ -1,15 +1,12 @@
 <div>
     <h1>父组件</h1>
     <label for="surname">姓</label>
-    <input id="surname" type="text" [(ngModel)]="surname">
-    <ol>
-        <li *ngFor="let item of htmlChangeLog">
-            <strong>{{item.title}}</strong>
-            <ul>
-                <li *ngFor="let subItem of item.children">{{subItem}}</li>
-            </ul>
-        </li>
-    </ol>
+    <input id="surname" type="text" [(ngModel)]="surname" (input)="onInput($event)" (blur)="onBlur($event)">
+        <div>
+            <span>姓名</span>
+            <span>{{surname}}</span>
+            <span>{{username}}</span>
+        </div>
     <h2>子组件</h2>
-    <app-sub [surname]="surname"></app-sub>
+    <app-sub [surname]="surname" (usernameChange)="onSubUsernameChange($event)"></app-sub>
 </div>
