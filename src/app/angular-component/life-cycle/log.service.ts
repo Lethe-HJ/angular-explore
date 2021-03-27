@@ -28,7 +28,6 @@ export class LogService {
 
   actLog(msg){
     console.warn('[操作]: ' + msg);
-    this.index += 1;
   }
 
 }

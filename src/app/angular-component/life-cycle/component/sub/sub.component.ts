@@ -12,6 +12,7 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   fullname: string = '';
   // 属性与方法最先被定义
   constructor(private logService: LogService) {
+    this.log('constructor');
     this.logService.setSpy(this, 'sub', [
       'username',
       'fullname',
@@ -39,7 +40,6 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
       const prev = JSON.stringify(chng.previousValue);
       changesRecord.push(`输入属性${propName}: ${prev} --> ${cur}`);
     }
-    alert(changesRecord.join(';'))
     this.log('ngOnChanges'); // 因为组件没有input输入属性 所以不会调用ngOnChanges
     this.fullname = this.surname + this.username;
   }

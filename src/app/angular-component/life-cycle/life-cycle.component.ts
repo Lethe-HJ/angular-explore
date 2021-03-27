@@ -18,7 +18,6 @@ export class LifeCycleComponent implements OnInit, OnChanges, DoCheck, AfterCont
 
   constructor(private logService: LogService) {
     console.log('父组件\t\t\t\t\t\t子组件')
-    this.log('declaration');
     this.log('constructor');
     this.logService.setSpy(this, 'life', [
       'surname',
@@ -85,7 +84,9 @@ export class LifeCycleComponent implements OnInit, OnChanges, DoCheck, AfterCont
   ngAfterViewChecked() {
     this.log('ngAfterViewChecked');
     if (this.fullname !== this.viewChild.fullname) {
+      this.testname = 'hahah'; // 这个赋值不会抛出异常 因为this.testname 不会影响视图
       if (!this.timer) this.timer = setTimeout(() => {
+        this.timer = null;
         this.logService.actLog('this.fullname = this.viewChild.fullname')
         this.fullname = this.viewChild.fullname;
       }, 0);
