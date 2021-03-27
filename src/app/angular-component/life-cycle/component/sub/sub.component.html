@@ -3,8 +3,15 @@
     <input id="username" type="text" [(ngModel)]="username" (input)="onUsernameInput($event)">
     <!-- 使用ngModel必须在当前模块的module.ts中的import数组中加入FormsModule-->
     <div>
-        <span>姓名</span>
+        <span>surname:</span>
         <span>{{surname}}</span>
+    </div>
+    <div>
+        <span>username:</span>
         <span>{{username}}</span>
+    </div>
+    <div>
+        <span>fullname:</span>
+        <span>{{fullname}}</span>
     </div>
 </div>

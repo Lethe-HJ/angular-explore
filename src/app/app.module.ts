@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { LifeCycleComponent } from './angular-component/life-cycle/life-cycle.component';
 import { AngularComponentModule } from './angular-component/angular-component.module';
+
 @NgModule({
   declarations: [
     AppComponent,

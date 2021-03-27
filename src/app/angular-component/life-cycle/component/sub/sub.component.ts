@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, DoCheck, AfterContentInit, AfterContentChecked } from '@angular/core';
-
+import { LogService } from '../../log.service';
 @Component({
   selector: 'app-sub',
   templateUrl: './sub.component.html',
@@ -9,19 +9,23 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   @Input() surname: string;
   @Output() usernameChange = new EventEmitter<string>();
   username: string = '';
+  fullname: string = '';
   // 属性与方法最先被定义
-  constructor() {
-    this.log('declaration');
-    this.log('constructor');
+  constructor(private logService: LogService) {
+    this.logService.setSpy(this, 'sub', [
+      'username',
+      'fullname',
+    ])
   }
 
   log(str) {
     const spaceStr = '                        ';
-    console.log(`${spaceStr}${(str + spaceStr + '   ').substr(0, 14)}       sub.surname='${this.surname}'  sub.username='${this.username}'`);
+    const msgModel = `${spaceStr}${str}`;
+    this.logService.log(msgModel);
   }
 
   onUsernameInput($event) {
-    console.log('子组件输入框发生了变化' + $event.target.value)
+    this.logService.actLog('子组件输入框输入' + $event.target.value)
     this.usernameChange.emit($event.target.value);
   }
 
@@ -35,15 +39,17 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
       const prev = JSON.stringify(chng.previousValue);
       changesRecord.push(`输入属性${propName}: ${prev} --> ${cur}`);
     }
+    alert(changesRecord.join(';'))
     this.log('ngOnChanges'); // 因为组件没有input输入属性 所以不会调用ngOnChanges
+    this.fullname = this.surname + this.username;
   }
 
   // 在 Angular 第一次显示数据绑定和设置指令/组件的输入属性之后 用于初始化指令/组件
   // 时机 在第一轮 ngOnChanges() 完成之后调用
   ngOnInit(): void {
-    this.username = 'jin';
-    console.log('给username赋值"jin"');
     this.log('ngOnInit')
+    this.logService.actLog('给username赋值"jin"');
+    this.username = 'jin';
   }
 
   // 检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应
