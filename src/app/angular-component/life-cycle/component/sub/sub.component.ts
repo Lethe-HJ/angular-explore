@@ -3,7 +3,7 @@ import { LogService } from '../../log.service';
 @Component({
   selector: 'app-sub',
   templateUrl: './sub.component.html',
-  styleUrls: ['./sub.component.sass']
+  styleUrls: ['./sub.component.scss']
 })
 export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
   @Input() surname: string;

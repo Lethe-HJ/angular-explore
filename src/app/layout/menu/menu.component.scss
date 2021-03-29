@@ -1,0 +1,9 @@
+button {
+  margin-bottom: 12px;
+}
+
+::ng-deep {
+  .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+    width: unset;
+  }
+}

@@ -1,0 +1,26 @@
+<div class="clearfix">
+  <nz-layout>
+    <nz-header>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item nzSelected>nav 1</li>
+        <li nz-menu-item>nav 2</li>
+        <li nz-menu-item>nav 3</li>
+      </ul>
+    </nz-header>
+    <nz-layout>
+      <nz-sider nzTheme="light">
+        <app-menu class="sider-menu"></app-menu>
+      </nz-sider>
+      <nz-layout class="inner-layout">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+          <nz-breadcrumb-item>List</nz-breadcrumb-item>
+          <nz-breadcrumb-item>App</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <nz-content>
+          <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+  </nz-layout>
+</div>

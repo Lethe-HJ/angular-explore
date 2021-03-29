@@ -1,9 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LifeCycleComponent } from './angular-component/life-cycle/life-cycle.component';
+import { BaseLayoutComponent } from './layout/base-layout/base-layout.component';
 
 const routes: Routes = [
-  { path: 'lifecycle', component: LifeCycleComponent },
+  {
+    path: '',
+    component: BaseLayoutComponent,
+    children: [
+      {
+        path: 'component',
+        loadChildren: () =>
+          /* tslint:disable */
+          import('./angular-component/angular-component.module').then((m) => m.AngularComponentModule),
+        /* tslint:enable */
+      }
+    ]
+
+  },
+
 ];
 
 @NgModule({
