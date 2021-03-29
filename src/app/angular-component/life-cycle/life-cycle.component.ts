@@ -23,6 +23,7 @@ export class LifeCycleComponent implements OnInit, OnChanges, DoCheck, AfterCont
       'surname',
       'username',
       'fullname',
+      'testname',
     ])
   }
 
@@ -84,12 +85,18 @@ export class LifeCycleComponent implements OnInit, OnChanges, DoCheck, AfterCont
   ngAfterViewChecked() {
     this.log('ngAfterViewChecked');
     if (this.fullname !== this.viewChild.fullname) {
-      this.testname = 'hahah'; // 这个赋值不会抛出异常 因为this.testname 不会影响视图
-      if (!this.timer) this.timer = setTimeout(() => {
-        this.timer = null;
-        this.logService.actLog('this.fullname = this.viewChild.fullname')
-        this.fullname = this.viewChild.fullname;
-      }, 0);
+      this.testname = 'hahah'; // 这个赋值不会抛出异常 因为this.testname 不会影响视图 所以也不会触发新的变更检测
+      if (!this.timer) {
+        this.logService.actLog('设置定时任务 下个js事件周期执行this.fullname = this.viewChild.fullname');
+        this.timer = setTimeout(() => {
+          this.timer = null;
+          this.fullname = this.viewChild.fullname;
+        }, 0);
+        // 即使发生变化的属性不影响视图也会触发变更检测
+        setTimeout(() => {
+          this.testname = '666';
+        }, 5000);
+      }
     }
   }
 }

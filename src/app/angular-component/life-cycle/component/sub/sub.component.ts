@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, DoCheck, AfterContentInit, AfterContentChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { LogService } from '../../log.service';
 @Component({
   selector: 'app-sub',
   templateUrl: './sub.component.html',
   styleUrls: ['./sub.component.scss']
 })
-export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
+export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @Input() surname: string;
   @Output() usernameChange = new EventEmitter<string>();
   username: string = '';
@@ -14,6 +14,7 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   constructor(private logService: LogService) {
     this.log('constructor');
     this.logService.setSpy(this, 'sub', [
+      'surname',
       'username',
       'fullname',
     ])
@@ -48,8 +49,8 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   // 时机 在第一轮 ngOnChanges() 完成之后调用
   ngOnInit(): void {
     this.log('ngOnInit')
-    this.logService.actLog('给username赋值"jin"');
-    this.username = 'jin';
+    // this.logService.actLog('给username赋值"jin"');
+    // this.username = 'jin';
   }
 
   // 检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应
@@ -65,7 +66,17 @@ export class SubComponent implements OnInit, OnChanges, DoCheck, AfterContentIni
   }
 
   ngAfterContentChecked() {
-    this.log('ngAfterContentChecked')
+    this.log('ngAfterContentChecked');
+  }
+
+  ngAfterViewInit() {
+    this.log('ngAfterViewInit');
+  }
+
+  // 每当 Angular 做完组件视图和子视图或包含该指令的视图的变更检测之后调用。
+  // ngAfterViewInit() 和每次 ngAfterContentChecked() 之后调用
+  ngAfterViewChecked() {
+    this.log('ngAfterViewChecked');
   }
 }
 

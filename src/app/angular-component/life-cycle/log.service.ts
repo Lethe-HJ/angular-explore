@@ -13,8 +13,8 @@ export class LogService {
           return val
         },
         set(newVal) {
-          console.warn(`[变化]: ${name}.${key}: '${val}'=>'${newVal}'`)
           if (val !== newVal) {
+            console.warn(`[变化]: ${name}.${key}: '${val}'=>'${newVal}'`);
             val = newVal
           }
         }
